@@ -418,7 +418,7 @@ async function initAdminDashboard() {
                     const safeFileName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
                     const filePath = `class_notes/${Date.now()}_${safeFileName}`;
                     
-                    const GITHUB_TOKEN = "YOUR_GITHUB_TOKEN_HERE"; // Replace with your actual GitHub token
+                    //const GITHUB_TOKEN = "YOUR_GITHUB_TOKEN_HERE"; // Replace with your actual GitHub token
                     const GITHUB_USERNAME = "gwa333903-hue";
                     const GITHUB_REPO = "class";
 
