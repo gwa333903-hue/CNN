@@ -1,0 +1,19 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Build with Secret
+        env:
+          GITHUB_TOKEN: ${{ secrets.GG_TOKEN }}
+        run: |
+          echo "The secret is securely available during this workflow run."
+          # Add your build or deployment commands here
