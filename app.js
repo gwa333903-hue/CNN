@@ -419,7 +419,8 @@ async function initAdminDashboard() {
                     const filePath = `class_notes/${Date.now()}_${safeFileName}`;
                     
                     // Pulls the injected secret token from the build process window scope, or fallback
-                    const GITHUB_TOKEN = window.INJECTED_GITHUB_TOKEN || "";
+                    // Change this line in app.js:
+                    const GITHUB_TOKEN = window.INJECTED_GITHUB_TOKEN || "INJECTED_TOKEN_PLACEHOLDER";
                     const GITHUB_USERNAME = "gwa333903-hue";
                     const GITHUB_REPO = "class";
 

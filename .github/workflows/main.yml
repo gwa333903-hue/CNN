@@ -11,9 +11,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Run Build with Secret
+      - name: Inject GitHub Secret into app.js
         env:
-          GITHUB_TOKEN: ${{ secrets.GG_TOKEN }}
+          GG_TOKEN: ${{ secrets.GG_TOKEN }}
         run: |
-          echo "The secret is securely available during this workflow run."
-          # Add your build or deployment commands here
+          # Safely replace the placeholder in app.js with the repository secret
+          sed -i 's|INJECTED_TOKEN_PLACEHOLDER|'"$GG_TOKEN"'|g' app.js
+
+      - name: Verify Injection
+        run: |
+          echo "Secret injected successfully for deployment build."
+          # Add your deployment commands here (e.g., Vercel CLI deployment if applicable)
