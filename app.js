@@ -418,15 +418,21 @@ async function initAdminDashboard() {
                     const safeFileName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
                     const filePath = `class_notes/${Date.now()}_${safeFileName}`;
                     
-                    //const GITHUB_TOKEN = "YOUR_GITHUB_TOKEN_HERE"; // Replace with your actual GitHub token
+                    // Pulls the injected secret token from the build process window scope, or fallback
+                    const GITHUB_TOKEN = window.INJECTED_GITHUB_TOKEN || "";
                     const GITHUB_USERNAME = "gwa333903-hue";
                     const GITHUB_REPO = "class";
+
+                    if (!GITHUB_TOKEN) {
+                        throw new Error("GitHub Token is missing. Ensure the workflow injected it properly.");
+                    }
 
                     const githubResponse = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${filePath}`, {
                         method: 'PUT',
                         headers: {
                             'Authorization': `Bearer ${GITHUB_TOKEN}`,
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/vnd.github+json'
                         },
                         body: JSON.stringify({
                             message: `Admin uploaded class note: ${file.name}`,
